@@ -21,10 +21,10 @@ function display(obj) {
 
                     //Handle the URL inside the Array
                     if(key === 'allegiances' && element.substring(0,4) === 'http') {
-                        document.getElementById('result').innerHTML += '<a href="' + "#" + '" class="houses" onclick="innerHttpClick(this.innerHTML)">' + '    ' + element + '</a>' + '</br>';
+                        document.getElementById('result').innerHTML += '<a href="' + "#" + '" class="houses" onclick="innerHttpClick(this)">' + '    ' + element + '</a>' + '</br>';
                     }
                     else if((key === 'books' || key === 'povBooks') && element.substring(0,4) === 'http') {
-                        document.getElementById('result').innerHTML += '<a href="' + "#" + '" class="books" onclick="innerHttpClick(this.innerHTML)">' + '    ' + element + '</a>' + '</br>';
+                        document.getElementById('result').innerHTML += '<a href="' + "#" + '" class="books" onclick="innerHttpClick(this)">' + '    ' + element + '</a>' + '</br>';
                     }
 
                     //Handle the rest
@@ -51,7 +51,7 @@ function display(obj) {
 
             //Add hyper link to the link string
             if(key === 'url' && obj[0][key].substring(0,4) === 'http') {
-                document.getElementById('result').innerHTML += '<a href="' + "#" + '" class="characters"  onclick="innerHttpClick(this.innerHTML)">' + '    ' + obj[0][key] + '</a>' + '</br>';
+                document.getElementById('result').innerHTML += '<a href="' + "#" + '" class="characters"  onclick="innerHttpClick(this)">' + '    ' + obj[0][key] + '</a>' + '</br>';
                 continue;
             }
 
@@ -71,13 +71,13 @@ function display(obj) {
 
                     //Handle the URL inside the Array
                     if(key === 'allegiances' && element.substring(0,4) === 'http') {
-                        document.getElementById('result').innerHTML += '<a href="' + "#" + '" class="houses" onclick="innerHttpClick(this.innerHTML)">' + '    ' + element + '</a>' + '</br>';
+                        document.getElementById('result').innerHTML += '<a href="' + "#" + '" class="houses" onclick="innerHttpClick(this)">' + '    ' + element + '</a>' + '</br>';
                     }
                     else if((key === 'books' || key === 'povBooks') && element.substring(0,4) === 'http') {
-                        document.getElementById('result').innerHTML += '<a href="' + "#" + '" class="books" onclick="innerHttpClick(this.innerHTML)">' + '    ' + element + '</a>' + '</br>';
+                        document.getElementById('result').innerHTML += '<a href="' + "#" + '" class="books" onclick="innerHttpClick(this)">' + '    ' + element + '</a>' + '</br>';
                     }
                     else if(key === 'characters' && element.substring(0,4) === 'http') {
-                        document.getElementById('result').innerHTML += '<a href="' + "#" + '" class="characters" onclick="innerHttpClick(this.innerHTML)">' + '    ' + element + '</a>' + '</br>';
+                        document.getElementById('result').innerHTML += '<a href="' + "#" + '" class="characters" onclick="innerHttpClick(this)">' + '    ' + element + '</a>' + '</br>';
                     }
 
                     //Handle the rest
@@ -104,7 +104,7 @@ function display(obj) {
 
             //Add hyper link to the link string
             if(key === 'url' && obj[key].substring(0,4) === 'http') {
-                document.getElementById('result').innerHTML += '<a href="' + "#" + '" class="characters"  onclick="innerHttpClick(this.innerHTML)">' + '    ' + obj[key] + '</a>' + '</br>';
+                document.getElementById('result').innerHTML += '<a href="' + "#" + '" class="characters"  onclick="innerHttpClick(this)">' + '    ' + obj[key] + '</a>' + '</br>';
                 continue;
             }
 
@@ -133,6 +133,15 @@ function myHttp(name) {
 }
 
 function innerHttpClick(url) {
+
+    if(url.innerHTML.substring(0,8) === 'http:///') {
+        url = url.innerHTML.substring(7);
+        log.console(url);
+    }
+    else {
+        url = url.innerHTML;
+    }
+
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function () {
         if(xmlHttp.readyState == 4 && xmlHttp.status == 200) {

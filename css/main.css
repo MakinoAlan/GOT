@@ -103,9 +103,27 @@ a {
     color: #cccccc;
 }
 
+.nav {
+    cursor: pointer;
+}
+
+
 .wrapper {
-    padding:30px 30px;
+    padding-top:100px;
     color: #cccccc;
+    text-align: center;
+}
+
+.wrapper li {
+    display: inline-block;
+}
+
+li:first-child {
+    width:180px;
+}
+
+#test {
+    text-align: left;
 }
 
 #test {
@@ -114,7 +132,7 @@ a {
 
 .banner li{
     display: inline-block;
-    padding:15px 30px;
+    width:180px;
     background-color: transparent;
     color: aliceblue;
 }

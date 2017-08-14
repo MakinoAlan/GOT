@@ -113,6 +113,12 @@ function display(obj) {
     }
 }
 
+function apirender(render) {
+    document.getElementById('searchName').innerHTML = render.toUpperCase() + " NAME";
+    document.getElementById('test').innerHTML = "";
+
+}
+
 function myHttp(name) {
 
     //var _url= "https://anapioficeandfire.com/api/characters/" + name;

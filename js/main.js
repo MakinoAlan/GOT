@@ -11,13 +11,18 @@ function prefetch(url) {
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function () {
         if(xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-            var obj = JSON.parse(this.responseText);
-            return obj;
+            var resp = JSON.parse(this.responseText);
+            return resp;
         }
     }
     xmlHttp.open("GET", url, true);
     xmlHttp.send();
+
 }
+
+
+
+
 
 function display(obj) {
 
@@ -36,9 +41,12 @@ function display(obj) {
                     //    document.getElementById('result').innerHTML += '<a href="' + "#" + '" class="houses" onclick="innerHttpClick(this)">' + '    ' + element + '</a>' + '</br>';
                     //}
                     if((key === 'books' || key === 'povBooks' || key === 'allegiances') && element.substring(0,4) === 'http') {
-                        //prefetch(element);
-                        console.log(prefetch(element)[name]);
-                        document.getElementById('result').innerHTML += '<a href="' + "#" + '" class="books" onclick="innerHttpClick(this)">' + '    ' + element + '</a>' + '</br>';
+
+                        console.log(prefetch(element));
+
+                        //console.log(tem);
+
+                        document.getElementById('result').innerHTML += '<a href="' + "#" + '" class="books" onclick="innerHttpClick(this)">' + '    ' + prefetch(element) + '</a>' + '</br>';
                     }
 
                     //Handle the rest
@@ -158,7 +166,7 @@ function myHttp(name) {
 
             //Debug in the console
             var str = JSON.stringify(obj, null, 2);
-            console.log(str);
+            //console.log(str);
 
             display(obj);         
     }

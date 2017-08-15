@@ -111,11 +111,17 @@ a {
 .wrapper {
     padding-top:100px;
     color: #cccccc;
-    text-align: center;
+    text-align: left;
 }
 
 .wrapper li {
     display: inline-block;
+}
+
+.wrapper pre {
+    margin-top:30px;
+    background-color: transparent;
+    border:none;
 }
 
 li:first-child {
@@ -131,6 +137,7 @@ li:first-child {
 }
 
 .banner li{
+    margin-top:30px;
     display: inline-block;
     width:180px;
     background-color: transparent;

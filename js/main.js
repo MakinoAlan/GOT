@@ -7,6 +7,18 @@ function myFunction(){
     myHttp(name);
 }
 
+function prefetch(url) {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function () {
+        if(xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+            var obj = JSON.parse(this.responseText);
+            return obj;
+        }
+    }
+    xmlHttp.open("GET", url, true);
+    xmlHttp.send();
+}
+
 function display(obj) {
 
     //Handle the array inside JSON
@@ -20,10 +32,12 @@ function display(obj) {
                 obj[0][key].forEach(function (element) {
 
                     //Handle the URL inside the Array
-                    if(key === 'allegiances' && element.substring(0,4) === 'http') {
-                        document.getElementById('result').innerHTML += '<a href="' + "#" + '" class="houses" onclick="innerHttpClick(this)">' + '    ' + element + '</a>' + '</br>';
-                    }
-                    else if((key === 'books' || key === 'povBooks') && element.substring(0,4) === 'http') {
+                    //if(key === 'allegiances' && element.substring(0,4) === 'http') {
+                    //    document.getElementById('result').innerHTML += '<a href="' + "#" + '" class="houses" onclick="innerHttpClick(this)">' + '    ' + element + '</a>' + '</br>';
+                    //}
+                    if((key === 'books' || key === 'povBooks' || key === 'allegiances') && element.substring(0,4) === 'http') {
+                        //prefetch(element);
+                        console.log(prefetch(element)[name]);
                         document.getElementById('result').innerHTML += '<a href="' + "#" + '" class="books" onclick="innerHttpClick(this)">' + '    ' + element + '</a>' + '</br>';
                     }
 
@@ -47,10 +61,19 @@ function display(obj) {
                     document.getElementById('result').innerHTML += '    ' + "Unknown" + '</br>';
                     continue;
                 }
+                else {
+                    document.getElementById('result').innerHTML += '<a href="' + "#" + '" class="characters"  onclick="innerHttpClick(this)">' + '    ' + obj[0][key] + '</a>' + '</br>';
+                    continue;
+                }
+
             }
 
             //Add hyper link to the link string
             if(key === 'url' && obj[0][key].substring(0,4) === 'http') {
+                document.getElementById('result').innerHTML += '<a href="' + "#" + '" class="characters"  onclick="innerHttpClick(this)">' + '    ' + obj[0][key] + '</a>' + '</br>';
+                continue;
+            }
+            if((key === 'spouse' || key === 'father' || key ==='mother') && obj[0][key].substring(0,4) === 'http') {
                 document.getElementById('result').innerHTML += '<a href="' + "#" + '" class="characters"  onclick="innerHttpClick(this)">' + '    ' + obj[0][key] + '</a>' + '</br>';
                 continue;
             }
@@ -82,7 +105,12 @@ function display(obj) {
 
                     //Handle the rest
                     else {
-                        document.getElementById('result').innerHTML += '    ' + element + '</br>';
+                        if(element === "") {
+                            document.getElementById('result').innerHTML += '    ' + "Unknown" + '</br>';
+                        }
+                        else {
+                            document.getElementById('result').innerHTML += '    ' + element + '</br>';
+                        }
                     }
                 })
                 continue;
@@ -95,7 +123,7 @@ function display(obj) {
             }
 
             //Process and print empty information
-            if(key === 'father' || key === 'mother' || key === 'spouse') {
+            if(key === 'father' || key === 'mother' || key === 'spouse' || key === 'born' || key === 'culture') {
                 if(obj[key] === "") {
                     document.getElementById('result').innerHTML += '    ' + "Unknown" + '</br>';
                     continue;
@@ -154,7 +182,7 @@ function innerHttpClick(url) {
             var obj = JSON.parse(this.responseText);
             document.getElementById('test').innerHTML = "";
             document.getElementById('test').innerHTML = "<pre id='result'></pre>";
-            console.log(JSON.stringify(obj));
+            //console.log(JSON.stringify(obj));
             display(obj);
         }
     }
